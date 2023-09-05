@@ -5,8 +5,8 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "maqueen": "github:dfrobot/pxt-maqueen#v1.7.2",
-        "MaqueenPlus": "github:dfrobot/pxt-dfrobot-maqueenplus#v1.5.1"
+        "pxt-esp8266": "github:cytrontechnologies/pxt-esp8266#v2.0.1",
+        "maqueenPlusV2": "github:dfrobot/pxt-dfrobot_maqueenplus_v20#v2.1.1"
     },
     "files": [
         "main.blocks",

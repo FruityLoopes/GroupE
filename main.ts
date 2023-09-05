@@ -173,142 +173,88 @@ while (true) {
 
             case "MoveR":
 
-            GET_success = true
-
-            
-
-            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 30)
-            maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOn)
-            break
-
- 
-
-            case "Move":
-
-            GET_success = true
-
-            maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 30)
-
-            basic.pause(1000)
-
- 
-
-            maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 30)
-
-            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
-
-            basic.pause(1000)
-
- 
-
-            maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 30)
-
-            basic.pause(1000)
-
- 
-
-            maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 30)
-
-            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
-
-            basic.pause(1000)
-
- 
-
-            maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 30)
-
-            basic.pause(1000)
-
- 
-
-            maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 30)
-
-            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
-
-            basic.pause(1000)
-
-            maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 30)
-
- 
-
-            basic.pause(1000)
-
-            maqueen.motorStop(maqueen.Motors.All)
-
-            break
-
-            case "Sense":
                 GET_success = true
-           
 
-                let Item = false
-
-                basic.forever(function () {
-
-                    if (DFRobotMaqueenPlus.ultraSonic(PIN.P0, PIN.P0) < 15 && DFRobotMaqueenPlus.ultraSonic(PIN.P0, PIN.P0) != 0) {
-
-                        Item = Math.randomBoolean()
-
-                        if (Item == true) {
-
-                            DFRobotMaqueenPlus.mototRun(Motors.M1, Dir.CCW, 255)
-
-                            DFRobotMaqueenPlus.mototRun(Motors.M2, Dir.CW, 255)
-
-                            basic.pause(100)
-
-                        }
-
-                        if (Item == false) {
-
-                            DFRobotMaqueenPlus.mototRun(Motors.M1, Dir.CW, 255)
-
-                            DFRobotMaqueenPlus.mototRun(Motors.M2, Dir.CCW, 255)
-
-                            basic.pause(300)
-
-                        }
-
-                    } else {
-
-                        DFRobotMaqueenPlus.mototRun(Motors.M1, Dir.CW, 255)
-
-                    }
-
-                })
-
-
-
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 0)
+               
+                /*for (let i = 0; i < 5; i++) {
+                    /*maqueenPlusV2.setIndexColor(maqueenPlusV2.ledRange(0, 3), maqueenPlusV2.NeoPixelColors.Red)
+                    basic.pause(1000)
+                    maqueenPlusV2.setIndexColor(maqueenPlusV2.ledRange(0, 3), maqueenPlusV2.NeoPixelColors.Blue)
+                    basic.pause(1000)
+                  
+               //maqueenPlusV2.controlLED(maqueenPlusV2.MyEnumLed.LeftLed, maqueenPlusV2.MyEnumSwitch.Open)
+                }*/
                 
                 break
 
+
+
+            
             case "MoveL":
 
                 GET_success = true
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 0)
 
-                maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 30)
-                maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)
+               
                 break
 
- 
+            case "Lights": // turn on lights
+                GET_success = true
+               
+                
+              
+                break
 
+            case "Message": //show message 
+                GET_success = true
+
+                basic.showString("Group E Robot")
+
+                break
+
+            case "Circle": //spin in circle, one wheel moves 255 other one moves half the speed
+                GET_success = true
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 20)
+
+
+                break
+
+            case "Sound": // play any sound
+                GET_success = true
+                music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.UntilDone)
+
+
+                break
             case "Forward":
 
-            GET_success = true
+                GET_success = true
 
-                maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 50)
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
 
                 break
 
- 
+            case "Backward":
+                GET_success = true
+
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Backward, 255)
+                
+                break
 
             case "Stop":
 
                 GET_success = true
+                
+                
+                maqueenPlusV2.controlMotorStop(maqueenPlusV2.MyEnumMotor.AllMotor)
 
-                maqueen.motorStop(maqueen.Motors.All)
+                maqueenPlusV2.controlLED(maqueenPlusV2.MyEnumLed.LeftLed, maqueenPlusV2.MyEnumSwitch.Close)
 
-            break
+                
+                break
 
         }
 // output HTML
