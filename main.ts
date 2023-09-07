@@ -76,11 +76,11 @@ let HTTP_pos = 0
 let GET_pos = 0
 let serial_str = ""
 let result = false
-let HTML_str = ""
-let GET_command = ""
-let client_ID = ""
 let LED_status = 0
 let GET_success: boolean = false
+let client_ID = ""
+let GET_command = ""
+let HTML_str = ""
 // 1 = STA (station, connect to wifi router); 2 = AP (make itself an access point)
 let WIFI_MODE = 2
 const Tx_pin: SerialPin = SerialPin.P12
@@ -130,145 +130,69 @@ while (true) {
         switch (GET_command) {
 
             case "": // request 192.168.x.x/
-
                 GET_success = true
-
                 break
-
-            case "Sad": // request 192.168.x.x/Sad
-
-                GET_success = true
-
-                LED_status = 1 - LED_status
-
-                pins.digitalWritePin(LED_pin, LED_status)
-
-                basic.showIcon(IconNames.Sad)
-
-                break
-
-            case "Happy": // request 192.168.x.x/Happy
-
-                GET_success = true
-
-                LED_status = 1 - LED_status
-
-                pins.digitalWritePin(LED_pin, LED_status)
-
-                basic.showIcon(IconNames.Happy)
-
-                break
-
-            case "Chad": // request 192.168.x.x/Chad
-
-                GET_success = true
-
-                LED_status = 1 - LED_status
-
-                pins.digitalWritePin(LED_pin, LED_status)
-
-                basic.showIcon(IconNames.Angry)
-
-                break
-
             case "MoveR":
-
                 GET_success = true
-
-                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
-                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 0)
-               
-                /*for (let i = 0; i < 5; i++) {
-                    /*maqueenPlusV2.setIndexColor(maqueenPlusV2.ledRange(0, 3), maqueenPlusV2.NeoPixelColors.Red)
-                    basic.pause(1000)
-                    maqueenPlusV2.setIndexColor(maqueenPlusV2.ledRange(0, 3), maqueenPlusV2.NeoPixelColors.Blue)
-                    basic.pause(1000)
-                  
-               //maqueenPlusV2.controlLED(maqueenPlusV2.MyEnumLed.LeftLed, maqueenPlusV2.MyEnumSwitch.Open)
-                }*/
-                
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 150)
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 50)
                 break
-
-
-
-            
             case "MoveL":
-
                 GET_success = true
-                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
-                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 0)
-
-               
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 150)
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 50)
                 break
-
             case "Lights": // turn on lights
                 GET_success = true
-               
-                
-              
-                break
 
+                    if (maqueenPlusV2.readLineSensorData(maqueenPlusV2.MyEnumLineSensor.SensorL1) == 1 && maqueenPlusV2.readLineSensorData(maqueenPlusV2.MyEnumLineSensor.SensorR1) == 1 ) {
+                        maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Forward, 70)
+                    }  
+                    if (maqueenPlusV2.readLineSensorData(maqueenPlusV2.MyEnumLineSensor.SensorL1) == 1 && maqueenPlusV2.readLineSensorData(maqueenPlusV2.MyEnumLineSensor.SensorR1) == 0) {
+                        maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 70)
+                        maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 20)
+                    }
+                    if (maqueenPlusV2.readLineSensorData(maqueenPlusV2.MyEnumLineSensor.SensorL1) == 0 && maqueenPlusV2.readLineSensorData(maqueenPlusV2.MyEnumLineSensor.SensorR1) == 1) {
+                        maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 20)
+                        maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 70)
+                    }
+                break
             case "Message": //show message 
                 GET_success = true
-
                 basic.showString("Group E Robot")
-
                 break
-
             case "Circle": //spin in circle, one wheel moves 255 other one moves half the speed
                 GET_success = true
                 maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.RightMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
                 maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.LeftMotor, maqueenPlusV2.MyEnumDir.Forward, 20)
-
-
                 break
-
             case "Sound": // play any sound
                 GET_success = true
                 music.play(music.stringPlayable("E B C5 A B G A F ", 120), music.PlaybackMode.UntilDone)
-
-
                 break
             case "Forward":
-
                 GET_success = true
-
-                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Forward, 255)
-
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Forward, 200)
+                maqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
                 break
-
             case "Backward":
                 GET_success = true
-
-                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Backward, 255)
-                
+                maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Backward, 200)
                 break
-
             case "Stop":
-
                 GET_success = true
-                
-                
                 maqueenPlusV2.controlMotorStop(maqueenPlusV2.MyEnumMotor.AllMotor)
-
-                maqueenPlusV2.controlLED(maqueenPlusV2.MyEnumLed.LeftLed, maqueenPlusV2.MyEnumSwitch.Close)
-
-                
                 break
-
         }
 // output HTML
         HTML_str = getHTML(GET_success)
         sendAT("AT+CIPSEND=" + client_ID + "," + (HTML_str.length + 2))
-sendAT(HTML_str, 1000)
+sendAT(HTML_str, 100)
 sendAT("AT+CIPCLOSE=" + client_ID)
 serial_str = ""
     }
 }
-function sendAT(command: string, waitTime: number = 100) {
-
+function sendAT(command: string, waitTime: number = 10) {
     serial.writeString(command + "\u000D\u000A")
-
     basic.pause(waitTime)
-
 }
